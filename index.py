@@ -1,5 +1,6 @@
 import os
 import difflib
+import base64
 
 tree = [
   # 1
@@ -7,21 +8,7 @@ tree = [
       {
         'type': 'file',
         'name': 'hellow.py',
-        'content': '''# hellow.py: 最初のFlaskアプリ
-from flask import Flask
-from flask import render_template # 追加
-from flask import request # 追加
-
-app = Flask(__name__)
-
-# トップ
-@app.route('/')
-def hellow_world():
-    mojiretsu = 'ようこそ、Flaskの世界へ！'
-    #print(mojiretsu)
-    #return mojiretsu
-    return render_template('index.html', mystr = mojiretsu) # 追加
-'''.splitlines(keepends=True),
+        'content': b'IyBoZWxsb3cucHk6IOacgOWIneOBrkZsYXNr44Ki44OX44OqCmZyb20gZmxhc2sgaW1wb3J0IEZsYXNrCmZyb20gZmxhc2sgaW1wb3J0IHJlbmRlcl90ZW1wbGF0ZSAjIOi/veWKoApmcm9tIGZsYXNrIGltcG9ydCByZXF1ZXN0ICMg6L+95YqgCgphcHAgPSBGbGFzayhfX25hbWVfXykKCiMg44OI44OD44OXCkBhcHAucm91dGUoJy8nKQpkZWYgaGVsbG93X3dvcmxkKCk6CiAgICBtb2ppcmV0c3UgPSAn44KI44GG44GT44Gd44CBRmxhc2vjga7kuJbnlYzjgbjvvIEnCiAgICAjcHJpbnQobW9qaXJldHN1KQogICAgI3JldHVybiBtb2ppcmV0c3UKICAgIHJldHVybiByZW5kZXJfdGVtcGxhdGUoJ2luZGV4Lmh0bWwnLCBteXN0ciA9IG1vamlyZXRzdSkgIyDov73liqAK',
       },
       {
         'type': 'directory',
@@ -30,33 +17,12 @@ def hellow_world():
           {
             'type': 'file',
             'name': 'index.html',
-            'content': '''{# index.html #}
-{% extends 'template.html' %}
-{% block main_content %}
-<!-- 文字列を挿入 -->
-{{mystr}}
-{% endblock %}
-'''.splitlines(keepends=True),
+            'content': b'eyMgaW5kZXguaHRtbCAjfQp7JSBleHRlbmRzICd0ZW1wbGF0ZS5odG1sJyAlfQp7JSBibG9jayBtYWluX2NvbnRlbnQgJX0KPCEtLSDmloflrZfliJfjgpLmjL/lhaUgLS0+Cnt7bXlzdHJ9fQp7JSBlbmRibG9jayAlfQ==',
           },
           {
             'type': 'file',
             'name': 'template.html',
-            'content': '''<!DOCTYPE html>
-<html>
-    <header>
-        <meta charset="UTF-8" />
-        <title>First Flask Application by ---</title>
-    <body>
-        <h1>最初のFlaskアプリケーション</h1>
-        <h2>---</h2>
-        <hr />
-        {% block main_content %}
-        {% endblock %}
-        <hr />
-        <address>Copyright (c) 2021 ---</address>
-    </body>
-</html>
-'''.splitlines(keepends=True),
+            'content': b'PCFET0NUWVBFIGh0bWw+CjxodG1sPgogICAgPGhlYWRlcj4KICAgICAgICA8bWV0YSBjaGFyc2V0PSJVVEYtOCIgLz4KICAgICAgICA8dGl0bGU+Rmlyc3QgRmxhc2sgQXBwbGljYXRpb24gYnkgLS0tPC90aXRsZT4KICAgIDxib2R5PgogICAgICAgIDxoMT7mnIDliJ3jga5GbGFza+OCouODl+ODquOCseODvOOCt+ODp+ODszwvaDE+CiAgICAgICAgPGgyPi0tLTwvaDI+CiAgICAgICAgPGhyIC8+CiAgICAgICAgeyUgYmxvY2sgbWFpbl9jb250ZW50ICV9CiAgICAgICAgeyUgZW5kYmxvY2sgJX0KICAgICAgICA8aHIgLz4KICAgICAgICA8YWRkcmVzcz5Db3B5cmlnaHQgKGMpIDIwMjEgLS0tPC9hZGRyZXNzPgogICAgPC9ib2R5Pgo8L2h0bWw+',
           },
         ],
       },
@@ -68,22 +34,7 @@ def hellow_world():
       {
         'type': 'file',
         'name': 'input.py',
-        'content': '''# input.py: フォーム入力の出力
-from flask import Flask
-from flask import render_template
-from flask import request
-
-app = Flask(__name__)
-
-# トップ
-@app.route('/', methods = ['GET', 'POST']) # POSTのみ入力に
-def show_input():
-    input = '入力なし'
-    if request.method == 'POST':
-        input = request.form['form_input'] # <input name="form_input" ...>
-
-    return render_template('index.html', mystr = input)
-'''.splitlines(keepends=True),
+        'content': b'IyBpbnB1dC5weTog44OV44Kp44O844Og5YWl5Yqb44Gu5Ye65YqbCmZyb20gZmxhc2sgaW1wb3J0IEZsYXNrCmZyb20gZmxhc2sgaW1wb3J0IHJlbmRlcl90ZW1wbGF0ZQpmcm9tIGZsYXNrIGltcG9ydCByZXF1ZXN0CgphcHAgPSBGbGFzayhfX25hbWVfXykKCiMg44OI44OD44OXCkBhcHAucm91dGUoJy8nLCBtZXRob2RzID0gWydHRVQnLCAnUE9TVCddKSAjIFBPU1Tjga7jgb/lhaXlipvjgasKZGVmIHNob3dfaW5wdXQoKToKICAgIGlucHV0ID0gJ+WFpeWKm+OBquOBlycKICAgIGlmIHJlcXVlc3QubWV0aG9kID09ICdQT1NUJzoKICAgICAgICBpbnB1dCA9IHJlcXVlc3QuZm9ybVsnZm9ybV9pbnB1dCddICMgPGlucHV0IG5hbWU9ImZvcm1faW5wdXQiIC4uLj4KCiAgICByZXR1cm4gcmVuZGVyX3RlbXBsYXRlKCdpbmRleC5odG1sJywgbXlzdHIgPSBpbnB1dCk=',
       },
       {
         'type': 'directory',
@@ -92,40 +43,12 @@ def show_input():
           {
             'type': 'file',
             'name': 'index.html',
-            'content': '''{# index.html #}
-{% extends 'template.html' %}
-{% block main_content %}
-<form method="POST">
-    <p>入力文字列: <input type="text" name="form_input" size="30" /></p>
-    <p>
-        <input type="submit" value="入力確定" />
-        <input type="reset" value="消去" />
-    </p>
-</form>
-<!-- 入力があれば文字列を挿入-->
-<p>入力文字列:  {{mystr}}</p>
-{% endblock %}
-'''.splitlines(keepends=True),
+            'content': b'eyMgaW5kZXguaHRtbCAjfQp7JSBleHRlbmRzICd0ZW1wbGF0ZS5odG1sJyAlfQp7JSBibG9jayBtYWluX2NvbnRlbnQgJX0KPGZvcm0gbWV0aG9kPSJQT1NUIj4KICAgIDxwPuWFpeWKm+aWh+Wtl+WIlzogPGlucHV0IHR5cGU9InRleHQiIG5hbWU9ImZvcm1faW5wdXQiIHNpemU9IjMwIiAvPjwvcD4KICAgIDxwPgogICAgICAgIDxpbnB1dCB0eXBlPSJzdWJtaXQiIHZhbHVlPSLlhaXlipvnorrlrpoiIC8+CiAgICAgICAgPGlucHV0IHR5cGU9InJlc2V0IiB2YWx1ZT0i5raI5Y67IiAvPgogICAgPC9wPgo8L2Zvcm0+CjwhLS0g5YWl5Yqb44GM44GC44KM44Gw5paH5a2X5YiX44KS5oy/5YWlLS0+CjxwPuWFpeWKm+aWh+Wtl+WIlzogIHt7bXlzdHJ9fTwvcD4KeyUgZW5kYmxvY2sgJX0=',
           },
           {
             'type': 'file',
             'name': 'template.html',
-            'content': '''<!DOCTYPE html>
-<html>
-    <header>
-        <meta charset="UTF-8" />
-        <title> Second Flask Application by ---</title>
-    <body>
-        <h1>フォームの入力の出力</h1>
-        <h2>---</h2>
-        <hr/>
-        {% block main_content %}
-        {% endblock %}
-        <hr />
-        <address>Copyright (c) 2021 ---</address>
-    </body>
-</html>
-'''.splitlines(keepends=True),
+            'content': b'PCFET0NUWVBFIGh0bWw+CjxodG1sPgogICAgPGhlYWRlcj4KICAgICAgICA8bWV0YSBjaGFyc2V0PSJVVEYtOCIgLz4KICAgICAgICA8dGl0bGU+IFNlY29uZCBGbGFzayBBcHBsaWNhdGlvbiBieSAtLS08L3RpdGxlPgogICAgPGJvZHk+CiAgICAgICAgPGgxPuODleOCqeODvOODoOOBruWFpeWKm+OBruWHuuWKmzwvaDE+CiAgICAgICAgPGgyPi0tLTwvaDI+CiAgICAgICAgPGhyLz4KICAgICAgICB7JSBibG9jayBtYWluX2NvbnRlbnQgJX0KICAgICAgICB7JSBlbmRibG9jayAlfQogICAgICAgIDxociAvPgogICAgICAgIDxhZGRyZXNzPkNvcHlyaWdodCAoYykgMjAyMSAtLS08L2FkZHJlc3M+CiAgICA8L2JvZHk+CjwvaHRtbD4=',
           },
         ],
       },
@@ -136,111 +59,10 @@ def show_input():
       {
         'type': 'file',
         'name': 'address.py',
-        'content': '''# address.py: 住所録アプリ
-from flask import Flask, render_template, request, redirect, url_for
-import sqlite3 # SQLite3パッケージ
-
-DATABASE_NAME = 'address.db'
-app = Flask(__name__)
-
-
-# [ヘルパ関数] SQLを実行する
-def execute_sql(sql):
-    con = sqlite3.connect(DATABASE_NAME)
-    cur = con.cursor()
-    result = []
-
-    for row in cur.execute(sql):
-        result.append(row)
-
-    con.commit()
-    con.close()
-
-    return result
-
-
-# [ヘルパ関数] SELECT文で帰ってきたデータの配列を連想配列に変換する
-# ※ データベース構造に依存する
-def convert_tbl_address(raw_row):
-    return({
-        'id': raw_row[0],
-        'name': raw_row[1],
-        'name_yomi': raw_row[2],
-        'postal_address': raw_row[3],
-        'memo': raw_row[4]
-    })
-
-
-# データ一覧（トップページ）
-@app.route('/', methods=['GET'])
-def show():
-    user_data = []
-
-    for data in execute_sql('SELECT id, name, name_yomi, postal_address, memo FROM tbl_address'):
-        user_data.append(convert_tbl_address(data))
-
-    return render_template('index.html', user_data=user_data)
-# --- (1) templates/template.html
-# ---     templates/index.html を作成し、
-# --- address.py をここまで作成して実行し、データの一覧が表形式で表示されることを確認
-
-
-# [処理] データ挿入
-@app.route('/', methods=['POST'])
-def insert():
-    name = request.form['name']
-    name_yomi = request.form['name_yomi']
-    address = request.form['postal_address']
-    memo = request.form['memo']
-
-    execute_sql(f'INSERT INTO tbl_address (name, name_yomi, postal_address, memo) VALUES ("{name}", "{name_yomi}", "{address}", "{memo}")')
-
-    return show()
-# --- (2) address.py をここまで作成して実行し、データの挿入ができることを確認
-
-
-# 詳細ページ
-@app.route('/detail', methods=['POST'])
-def detail():
-    id = request.form['id']
-    # 1行だけしか返らないはずなので、[0]を指定しておく (こんなイメージ: [[1,2,3]] → [1,2,3])
-    row_raw = execute_sql(f'SELECT * FROM tbl_address WHERE id = {id}')[0]
-    data = convert_tbl_address(row_raw)
-
-    return render_template('detail.html', data=data)
-# --- (3) templates/detail.html を作成し、
-# address.py をここまで作成して詳細ページが表示できることを確認
-
-
-# [処理] データ処理
-@app.route('/delete', methods=['POST'])
-def delete():
-    id = request.form['id']
-    execute_sql(f'DELETE FROM tbl_address WHERE id = {id}')
-
-    return redirect(url_for('show'))
-# --- (4) address.py をここまで作成して実行し、
-#         データの削除ができることを確認
-
-
-# [処理] データ更新
-@app.route('/update', methods=['POST'])
-def update():
-    id = request.form['id']
-    name = request.form['name']
-    name_yomi = request.form['name_yomi']
-    postal_address = request.form['postal_address']
-    memo = request.form['memo']
-
-    execute_sql(f'UPDATE tbl_address SET name = "{name}", name_yomi = "{name_yomi}", postal_address = "{postal_address}", memo = "{memo}" WHERE id = {id}')
-
-    return redirect(url_for('show'))
-# --- (5) address.py をここまで作成して実行し
-#         データの更新ができることを確認
-'''.splitlines(keepends=True),
+        'content': b'IyBhZGRyZXNzLnB5OiDkvY/miYDpjLLjgqLjg5fjg6oKZnJvbSBmbGFzayBpbXBvcnQgRmxhc2ssIHJlbmRlcl90ZW1wbGF0ZSwgcmVxdWVzdCwgcmVkaXJlY3QsIHVybF9mb3IKaW1wb3J0IHNxbGl0ZTMgIyBTUUxpdGUz44OR44OD44Kx44O844K4CgpEQVRBQkFTRV9OQU1FID0gJ2FkZHJlc3MuZGInCmFwcCA9IEZsYXNrKF9fbmFtZV9fKQoKCiMgW+ODmOODq+ODkemWouaVsF0gU1FM44KS5a6f6KGM44GZ44KLCmRlZiBleGVjdXRlX3NxbChzcWwpOgogICAgY29uID0gc3FsaXRlMy5jb25uZWN0KERBVEFCQVNFX05BTUUpCiAgICBjdXIgPSBjb24uY3Vyc29yKCkKICAgIHJlc3VsdCA9IFtdCgogICAgZm9yIHJvdyBpbiBjdXIuZXhlY3V0ZShzcWwpOgogICAgICAgIHJlc3VsdC5hcHBlbmQocm93KQoKICAgIGNvbi5jb21taXQoKQogICAgY29uLmNsb3NlKCkKCiAgICByZXR1cm4gcmVzdWx0CgoKIyBb44OY44Or44OR6Zai5pWwXSBTRUxFQ1TmlofjgafluLDjgaPjgabjgY3jgZ/jg4fjg7zjgr/jga7phY3liJfjgpLpgKPmg7PphY3liJfjgavlpInmj5vjgZnjgosKIyDigLsg44OH44O844K/44OZ44O844K55qeL6YCg44Gr5L6d5a2Y44GZ44KLCmRlZiBjb252ZXJ0X3RibF9hZGRyZXNzKHJhd19yb3cpOgogICAgcmV0dXJuKHsKICAgICAgICAnaWQnOiByYXdfcm93WzBdLAogICAgICAgICduYW1lJzogcmF3X3Jvd1sxXSwKICAgICAgICAnbmFtZV95b21pJzogcmF3X3Jvd1syXSwKICAgICAgICAncG9zdGFsX2FkZHJlc3MnOiByYXdfcm93WzNdLAogICAgICAgICdtZW1vJzogcmF3X3Jvd1s0XQogICAgfSkKCgojIOODh+ODvOOCv+S4gOimp++8iOODiOODg+ODl+ODmuODvOOCuO+8iQpAYXBwLnJvdXRlKCcvJywgbWV0aG9kcz1bJ0dFVCddKQpkZWYgc2hvdygpOgogICAgdXNlcl9kYXRhID0gW10KCiAgICBmb3IgZGF0YSBpbiBleGVjdXRlX3NxbCgnU0VMRUNUIGlkLCBuYW1lLCBuYW1lX3lvbWksIHBvc3RhbF9hZGRyZXNzLCBtZW1vIEZST00gdGJsX2FkZHJlc3MnKToKICAgICAgICB1c2VyX2RhdGEuYXBwZW5kKGNvbnZlcnRfdGJsX2FkZHJlc3MoZGF0YSkpCgogICAgcmV0dXJuIHJlbmRlcl90ZW1wbGF0ZSgnaW5kZXguaHRtbCcsIHVzZXJfZGF0YT11c2VyX2RhdGEpCiMgLS0tICgxKSB0ZW1wbGF0ZXMvdGVtcGxhdGUuaHRtbAojIC0tLSAgICAgdGVtcGxhdGVzL2luZGV4Lmh0bWwg44KS5L2c5oiQ44GX44CBCiMgLS0tIGFkZHJlc3MucHkg44KS44GT44GT44G+44Gn5L2c5oiQ44GX44Gm5a6f6KGM44GX44CB44OH44O844K/44Gu5LiA6Kan44GM6KGo5b2i5byP44Gn6KGo56S644GV44KM44KL44GT44Go44KS56K66KqNCgoKIyBb5Yem55CGXSDjg4fjg7zjgr/mjL/lhaUKQGFwcC5yb3V0ZSgnLycsIG1ldGhvZHM9WydQT1NUJ10pCmRlZiBpbnNlcnQoKToKICAgIG5hbWUgPSByZXF1ZXN0LmZvcm1bJ25hbWUnXQogICAgbmFtZV95b21pID0gcmVxdWVzdC5mb3JtWyduYW1lX3lvbWknXQogICAgYWRkcmVzcyA9IHJlcXVlc3QuZm9ybVsncG9zdGFsX2FkZHJlc3MnXQogICAgbWVtbyA9IHJlcXVlc3QuZm9ybVsnbWVtbyddCgogICAgZXhlY3V0ZV9zcWwoZidJTlNFUlQgSU5UTyB0YmxfYWRkcmVzcyAobmFtZSwgbmFtZV95b21pLCBwb3N0YWxfYWRkcmVzcywgbWVtbykgVkFMVUVTICgie25hbWV9IiwgIntuYW1lX3lvbWl9IiwgInthZGRyZXNzfSIsICJ7bWVtb30iKScpCgogICAgcmV0dXJuIHNob3coKQojIC0tLSAoMikgYWRkcmVzcy5weSDjgpLjgZPjgZPjgb7jgafkvZzmiJDjgZfjgablrp/ooYzjgZfjgIHjg4fjg7zjgr/jga7mjL/lhaXjgYzjgafjgY3jgovjgZPjgajjgpLnorroqo0KCgojIOips+e0sOODmuODvOOCuApAYXBwLnJvdXRlKCcvZGV0YWlsJywgbWV0aG9kcz1bJ1BPU1QnXSkKZGVmIGRldGFpbCgpOgogICAgaWQgPSByZXF1ZXN0LmZvcm1bJ2lkJ10KICAgICMgMeihjOOBoOOBkeOBl+OBi+i/lOOCieOBquOBhOOBr+OBmuOBquOBruOBp+OAgVswXeOCkuaMh+WumuOBl+OBpuOBiuOBjyAo44GT44KT44Gq44Kk44Oh44O844K4OiBbWzEsMiwzXV0g4oaSIFsxLDIsM10pCiAgICByb3dfcmF3ID0gZXhlY3V0ZV9zcWwoZidTRUxFQ1QgKiBGUk9NIHRibF9hZGRyZXNzIFdIRVJFIGlkID0ge2lkfScpWzBdCiAgICBkYXRhID0gY29udmVydF90YmxfYWRkcmVzcyhyb3dfcmF3KQoKICAgIHJldHVybiByZW5kZXJfdGVtcGxhdGUoJ2RldGFpbC5odG1sJywgZGF0YT1kYXRhKQojIC0tLSAoMykgdGVtcGxhdGVzL2RldGFpbC5odG1sIOOCkuS9nOaIkOOBl+OAgQojIGFkZHJlc3MucHkg44KS44GT44GT44G+44Gn5L2c5oiQ44GX44Gm6Kmz57Sw44Oa44O844K444GM6KGo56S644Gn44GN44KL44GT44Go44KS56K66KqNCgoKIyBb5Yem55CGXSDjg4fjg7zjgr/lh6bnkIYKQGFwcC5yb3V0ZSgnL2RlbGV0ZScsIG1ldGhvZHM9WydQT1NUJ10pCmRlZiBkZWxldGUoKToKICAgIGlkID0gcmVxdWVzdC5mb3JtWydpZCddCiAgICBleGVjdXRlX3NxbChmJ0RFTEVURSBGUk9NIHRibF9hZGRyZXNzIFdIRVJFIGlkID0ge2lkfScpCgogICAgcmV0dXJuIHJlZGlyZWN0KHVybF9mb3IoJ3Nob3cnKSkKIyAtLS0gKDQpIGFkZHJlc3MucHkg44KS44GT44GT44G+44Gn5L2c5oiQ44GX44Gm5a6f6KGM44GX44CBCiMgICAgICAgICDjg4fjg7zjgr/jga7liYrpmaTjgYzjgafjgY3jgovjgZPjgajjgpLnorroqo0KCgojIFvlh6bnkIZdIOODh+ODvOOCv+abtOaWsApAYXBwLnJvdXRlKCcvdXBkYXRlJywgbWV0aG9kcz1bJ1BPU1QnXSkKZGVmIHVwZGF0ZSgpOgogICAgaWQgPSByZXF1ZXN0LmZvcm1bJ2lkJ10KICAgIG5hbWUgPSByZXF1ZXN0LmZvcm1bJ25hbWUnXQogICAgbmFtZV95b21pID0gcmVxdWVzdC5mb3JtWyduYW1lX3lvbWknXQogICAgcG9zdGFsX2FkZHJlc3MgPSByZXF1ZXN0LmZvcm1bJ3Bvc3RhbF9hZGRyZXNzJ10KICAgIG1lbW8gPSByZXF1ZXN0LmZvcm1bJ21lbW8nXQoKICAgIGV4ZWN1dGVfc3FsKGYnVVBEQVRFIHRibF9hZGRyZXNzIFNFVCBuYW1lID0gIntuYW1lfSIsIG5hbWVfeW9taSA9ICJ7bmFtZV95b21pfSIsIHBvc3RhbF9hZGRyZXNzID0gIntwb3N0YWxfYWRkcmVzc30iLCBtZW1vID0gInttZW1vfSIgV0hFUkUgaWQgPSB7aWR9JykKCiAgICByZXR1cm4gcmVkaXJlY3QodXJsX2Zvcignc2hvdycpKQojIC0tLSAoNSkgYWRkcmVzcy5weSDjgpLjgZPjgZPjgb7jgafkvZzmiJDjgZfjgablrp/ooYzjgZcKIyAgICAgICAgIOODh+ODvOOCv+OBruabtOaWsOOBjOOBp+OBjeOCi+OBk+OBqOOCkueiuuiqjQ==',
       },
       {
-        'type': 'binary',
+        'type': 'sqlite',
         'name': 'address.db'
       },
       {
@@ -250,115 +72,17 @@ def update():
           {
             'type': 'file',
             'name': 'index.html',
-            'content': '''{% extends 'template.html' %}
-{% block main %}
-<h1>アドレス一覧</h1>
-<table style="border-style: solid">
-<tr>
-    <th>id</th>
-    <th>名前</th>
-    <th>名前(よみがな)</th>
-    <th>住所</th>
-    <th>メモ</th>
-    <th></th>
-</tr>
-
-{% for data in user_data %}
-<tr>
-    <td>{{ data['id'] }}</td>
-    <td>{{ data['name'] }}</td>
-    <td>{{ data['name_yomi'] }}</td>
-    <td>{{ data['postal_address'] }}</td>
-    <td>{{ data['memo'] }}</td>
-    <td>
-        <form method="post" action="detail">
-            <input type="hidden" name="id" value="{{ data['id'] }}">
-            <input type="submit" value="詳細">
-        </form>
-    </td>
-</tr>
-{% endfor %}
-
-<tr>
-    <td>{{ user_data | length + 1 }}</td>
-    <td><input form="insert" name="name" required placeholder="名前"></td>
-    <td><input form="insert" name="name_yomi" required placeholder="名前（よみがな) "></td>
-    <td><input form="insert" name="postal_address" required placeholder="住所"></td>
-    <td><input form="insert" name="memo" required placeholder="メモ"></td>
-    <td>
-        <form action="/" id="insert" method="post">
-            <input type="submit" value="追加">
-        </form>
-    </td>
-</td>
-</table>
-{% endblock %}
-'''.splitlines(keepends=True),
+            'content': b'eyUgZXh0ZW5kcyAndGVtcGxhdGUuaHRtbCcgJX0KeyUgYmxvY2sgbWFpbiAlfQo8aDE+44Ki44OJ44Os44K55LiA6KanPC9oMT4KPHRhYmxlIHN0eWxlPSJib3JkZXItc3R5bGU6IHNvbGlkIj4KPHRyPgogICAgPHRoPmlkPC90aD4KICAgIDx0aD7lkI3liY08L3RoPgogICAgPHRoPuWQjeWJjSjjgojjgb/jgYzjgaopPC90aD4KICAgIDx0aD7kvY/miYA8L3RoPgogICAgPHRoPuODoeODojwvdGg+CiAgICA8dGg+PC90aD4KPC90cj4KCnslIGZvciBkYXRhIGluIHVzZXJfZGF0YSAlfQo8dHI+CiAgICA8dGQ+e3sgZGF0YVsnaWQnXSB9fTwvdGQ+CiAgICA8dGQ+e3sgZGF0YVsnbmFtZSddIH19PC90ZD4KICAgIDx0ZD57eyBkYXRhWyduYW1lX3lvbWknXSB9fTwvdGQ+CiAgICA8dGQ+e3sgZGF0YVsncG9zdGFsX2FkZHJlc3MnXSB9fTwvdGQ+CiAgICA8dGQ+e3sgZGF0YVsnbWVtbyddIH19PC90ZD4KICAgIDx0ZD4KICAgICAgICA8Zm9ybSBtZXRob2Q9InBvc3QiIGFjdGlvbj0iZGV0YWlsIj4KICAgICAgICAgICAgPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iaWQiIHZhbHVlPSJ7eyBkYXRhWydpZCddIH19Ij4KICAgICAgICAgICAgPGlucHV0IHR5cGU9InN1Ym1pdCIgdmFsdWU9Iuips+e0sCI+CiAgICAgICAgPC9mb3JtPgogICAgPC90ZD4KPC90cj4KeyUgZW5kZm9yICV9Cgo8dHI+CiAgICA8dGQ+e3sgdXNlcl9kYXRhIHwgbGVuZ3RoICsgMSB9fTwvdGQ+CiAgICA8dGQ+PGlucHV0IGZvcm09Imluc2VydCIgbmFtZT0ibmFtZSIgcmVxdWlyZWQgcGxhY2Vob2xkZXI9IuWQjeWJjSI+PC90ZD4KICAgIDx0ZD48aW5wdXQgZm9ybT0iaW5zZXJ0IiBuYW1lPSJuYW1lX3lvbWkiIHJlcXVpcmVkIHBsYWNlaG9sZGVyPSLlkI3liY3vvIjjgojjgb/jgYzjgaopICI+PC90ZD4KICAgIDx0ZD48aW5wdXQgZm9ybT0iaW5zZXJ0IiBuYW1lPSJwb3N0YWxfYWRkcmVzcyIgcmVxdWlyZWQgcGxhY2Vob2xkZXI9IuS9j+aJgCI+PC90ZD4KICAgIDx0ZD48aW5wdXQgZm9ybT0iaW5zZXJ0IiBuYW1lPSJtZW1vIiByZXF1aXJlZCBwbGFjZWhvbGRlcj0i44Oh44OiIj48L3RkPgogICAgPHRkPgogICAgICAgIDxmb3JtIGFjdGlvbj0iLyIgaWQ9Imluc2VydCIgbWV0aG9kPSJwb3N0Ij4KICAgICAgICAgICAgPGlucHV0IHR5cGU9InN1Ym1pdCIgdmFsdWU9Iui/veWKoCI+CiAgICAgICAgPC9mb3JtPgogICAgPC90ZD4KPC90ZD4KPC90YWJsZT4KeyUgZW5kYmxvY2sgJX0=',
           },
           {
             'type': 'file',
             'name': 'template.html',
-            'content': '''<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>Address book on SQLite</title>
-        <style>
-            table, th, td{
-                border-collapse: collapse;
-                border: solid;
-            }
-        </style>
-    </head>
-    <body>
-    <header>
-        <h1>SQLite3 住所録</h1>
-        <h2>---</h2>
-    </header>
-    <hr />
-    {% block main %}
-    {% endblock %}
-    <hr />
-    </main>
-    <footer class="td-footer">
-        <address>Copyright (c) 2021 ---</address>
-    </footer>
-    </body>
-<html>
-'''.splitlines(keepends=True),
+            'content': b'PCFET0NUWVBFIGh0bWw+CjxodG1sPgogICAgPGhlYWQ+CiAgICAgICAgPG1ldGEgY2hhcnNldD0iVVRGLTgiIC8+CiAgICAgICAgPHRpdGxlPkFkZHJlc3MgYm9vayBvbiBTUUxpdGU8L3RpdGxlPgogICAgICAgIDxzdHlsZT4KICAgICAgICAgICAgdGFibGUsIHRoLCB0ZHsKICAgICAgICAgICAgICAgIGJvcmRlci1jb2xsYXBzZTogY29sbGFwc2U7CiAgICAgICAgICAgICAgICBib3JkZXI6IHNvbGlkOwogICAgICAgICAgICB9CiAgICAgICAgPC9zdHlsZT4KICAgIDwvaGVhZD4KICAgIDxib2R5PgogICAgPGhlYWRlcj4KICAgICAgICA8aDE+U1FMaXRlMyDkvY/miYDpjLI8L2gxPgogICAgICAgIDxoMj4tLS08L2gyPgogICAgPC9oZWFkZXI+CiAgICA8aHIgLz4KICAgIHslIGJsb2NrIG1haW4gJX0KICAgIHslIGVuZGJsb2NrICV9CiAgICA8aHIgLz4KICAgIDwvbWFpbj4KICAgIDxmb290ZXIgY2xhc3M9InRkLWZvb3RlciI+CiAgICAgICAgPGFkZHJlc3M+Q29weXJpZ2h0IChjKSAyMDIxIC0tLTwvYWRkcmVzcz4KICAgIDwvZm9vdGVyPgogICAgPC9ib2R5Pgo8aHRtbD4=',
           },
           {
             'type': 'file',
             'name': 'detail.html',
-            'content': '''{% extends 'template.html' %}
-{% block main %}
-<h1>プロフィール詳細</h>
-<a href="/">
-<button style="margin:10px 0">← 一覧に戻る</button>
-</a>
-<table>
-<tr><th>id</td><td>{{data['id']}}</th></tr>
-<tr><th>名前</td><td><input name="name" value="{{data['name']}}" form="update_form"></th></tr>
-<tr>
-    <td>名前 (よみがな) </td><td><input name="name_yomi" value="{{data['name_yomi']}}" form="update_form"></td>
-</tr>
-<tr>
-    <td>住所</td><td><input name="postal_address" value="{{data['postal_address']}}" form="update_form"></td>
-</tr>
-<tr>
-    <td>メモ</td><td><input name="memo" type="textbox" value="{{data['memo']}}" form="update_form"></td>
-</tr>
-</table>
-<form method="post" action="/delete" style="display:inline">
-    <input type="hidden" name="id" value="{{ data['id']}}">
-    <input type="submit" value="削除" style="background-color: red">
-</form>
-<form method="post" action="/update" style="display:inline" id="update_form">
-    <input type="hidden" name="id" value="{{ data['id']}}">
-    <input type="submit" value="更新">
-</form>
-{% endblock %}
-'''.splitlines(keepends=True),
+            'content': b'eyUgZXh0ZW5kcyAndGVtcGxhdGUuaHRtbCcgJX0KeyUgYmxvY2sgbWFpbiAlfQo8aDE+44OX44Ot44OV44Kj44O844Or6Kmz57SwPC9oPgo8YSBocmVmPSIvIj4KPGJ1dHRvbiBzdHlsZT0ibWFyZ2luOjEwcHggMCI+4oaQIOS4gOimp+OBq+aIu+OCizwvYnV0dG9uPgo8L2E+Cjx0YWJsZT4KPHRyPjx0aD5pZDwvdGQ+PHRkPnt7ZGF0YVsnaWQnXX19PC90aD48L3RyPgo8dHI+PHRoPuWQjeWJjTwvdGQ+PHRkPjxpbnB1dCBuYW1lPSJuYW1lIiB2YWx1ZT0ie3tkYXRhWyduYW1lJ119fSIgZm9ybT0idXBkYXRlX2Zvcm0iPjwvdGg+PC90cj4KPHRyPgogICAgPHRkPuWQjeWJjSAo44KI44G/44GM44GqKSA8L3RkPjx0ZD48aW5wdXQgbmFtZT0ibmFtZV95b21pIiB2YWx1ZT0ie3tkYXRhWyduYW1lX3lvbWknXX19IiBmb3JtPSJ1cGRhdGVfZm9ybSI+PC90ZD4KPC90cj4KPHRyPgogICAgPHRkPuS9j+aJgDwvdGQ+PHRkPjxpbnB1dCBuYW1lPSJwb3N0YWxfYWRkcmVzcyIgdmFsdWU9Int7ZGF0YVsncG9zdGFsX2FkZHJlc3MnXX19IiBmb3JtPSJ1cGRhdGVfZm9ybSI+PC90ZD4KPC90cj4KPHRyPgogICAgPHRkPuODoeODojwvdGQ+PHRkPjxpbnB1dCBuYW1lPSJtZW1vIiB0eXBlPSJ0ZXh0Ym94IiB2YWx1ZT0ie3tkYXRhWydtZW1vJ119fSIgZm9ybT0idXBkYXRlX2Zvcm0iPjwvdGQ+CjwvdHI+CjwvdGFibGU+Cjxmb3JtIG1ldGhvZD0icG9zdCIgYWN0aW9uPSIvZGVsZXRlIiBzdHlsZT0iZGlzcGxheTppbmxpbmUiPgogICAgPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iaWQiIHZhbHVlPSJ7eyBkYXRhWydpZCddfX0iPgogICAgPGlucHV0IHR5cGU9InN1Ym1pdCIgdmFsdWU9IuWJiumZpCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6IHJlZCI+CjwvZm9ybT4KPGZvcm0gbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii91cGRhdGUiIHN0eWxlPSJkaXNwbGF5OmlubGluZSIgaWQ9InVwZGF0ZV9mb3JtIj4KICAgIDxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9ImlkIiB2YWx1ZT0ie3sgZGF0YVsnaWQnXX19Ij4KICAgIDxpbnB1dCB0eXBlPSJzdWJtaXQiIHZhbHVlPSLmm7TmlrAiPgo8L2Zvcm0+CnslIGVuZGJsb2NrICV9',
           },
         ],
       },
@@ -367,10 +91,10 @@ def update():
 
 file_tree_errors = []
 
-def diff_file_and_text(filepath, text):
+def diff_file_and_content(filepath, content):
   file = open(filepath, 'r')
   d = difflib.Differ()
-  diff = d.compare(text, file.readlines())
+  diff = d.compare(base64.b64decode(content).decode().splitlines(keepends=True), file.readlines())
   file.close()
   return diff
 
@@ -385,16 +109,16 @@ def file_exist_check(files, basedir = '.'):
 
     elif file['type'] == 'file':
       if (os.path.isfile(filepath)):
-        diff = diff_file_and_text(filepath, file['content'])
+        diff = diff_file_and_content(filepath, file['content'])
         output = open(filepath + '.diff', 'w')
         output.writelines('\n'.join(diff))
         output.close()
       else:
         file_tree_errors.append('ファイル「{}」が存在しません。'.format(filepath))
     
-    elif file['type'] == 'binary':
+    elif file['type'] == 'sqlite':
       if (not os.path.isfile(filepath)):
-        file_tree_errors.append('バイナリファイル「{}」が存在しません。'.format(filepath))
+        file_tree_errors.append('SQLiteのデータベースファイル「{}」が存在しません。'.format(filepath))
 
     else: 
       raise SyntaxError('スクリプトに問題があります。')
