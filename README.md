@@ -13,7 +13,7 @@
 
 `correct_files`の直下に問題の種類名のディレクトリを作り、その中にお手本とするファイル群をコピーします。（その際、このリポジトリに含まれるサンプルは削除して問題ありません。）
 
-`config.py`の`CONTENT_FILE_EXT`に指定した拡張子のつくPythonスクリプトでは、中身のDiffをファイルに生成します。
+`config.py`の`CONTENT_FILE_EXT`に指定した拡張子のつくファイルでは、Diffファイルを生成します。
 
 `gen.py`を実行することで、`dist/output.py`を生成できます。
 
