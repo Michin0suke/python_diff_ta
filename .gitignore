@@ -1,9 +1,2 @@
-*
-
-!/.gitignore
-!/index.py
-!/check.bat
-
-!/b64/
-!/b64/b64_conv.py
-!/b64/input.txt
+__pycache__
+.DS_Store
