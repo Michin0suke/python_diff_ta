@@ -118,10 +118,10 @@ if __name__ == '__main__':
   print('[選択できる問題一覧]')
   print('・' + '\n・'.join(tree.keys()))
   print()
+  
   check_type = input('チェックしたい問題を入力してください : ')
 
   print('\n-------------\n')
-
   print('[カレントディレクトリ]\n{}\n'.format(os.path.dirname(os.path.abspath(__file__))))
 
   main(check_type)

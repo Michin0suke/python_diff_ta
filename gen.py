@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import json
 from components import tree
 import config
